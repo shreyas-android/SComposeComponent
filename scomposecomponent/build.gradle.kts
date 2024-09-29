@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("maven-publish")
 }
 
 android {
@@ -35,6 +36,32 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = libs.compose.compiler.get().version
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+
+}
+
+group = "com.androidai.framework"
+version = "1.0"
+
+afterEvaluate {
+    publishing{
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.androidai.framework"
+                artifactId = "scompose-component"
+                version = "1.0.0"
+
+                afterEvaluate {
+                    from(components["release"])
+                }
+            }
+        }
     }
 }
 
