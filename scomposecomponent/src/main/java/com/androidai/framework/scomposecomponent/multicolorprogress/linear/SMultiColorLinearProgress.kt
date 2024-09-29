@@ -41,15 +41,18 @@ fun InfiniteMultiColorLinearProgressIndicator(
         val totalSegmentWidth = segmentWidth + spacing
         val lineWidth = thickness.toPx()
 
+        val height = size.height / 2
+
         val totalSegments = colors.size
 
         for(i in 0 until totalSegments) {
 
-            val color = colors[i] // Repeat the colors cyclically
+            val color = colors[i]
+            val startX = (i * totalSegmentWidth) + offset
             drawLine(
                 color = color, start = Offset(
-                    x = (i * totalSegmentWidth) + offset, y = size.height / 2), end = Offset(
-                    x = (i * totalSegmentWidth) + offset + segmentWidth, y = size.height / 2),
+                    x = startX, y = height), end = Offset(
+                    x = startX + segmentWidth, y = height),
                 strokeWidth = lineWidth, cap = strokeCap)
         }
         var startPos = (offset - segmentWidth)
@@ -60,8 +63,8 @@ fun InfiniteMultiColorLinearProgressIndicator(
 
             drawLine(
                 color = color, start = Offset(
-                    x = startPos, y = size.height / 2), end = Offset(
-                    x = endPos, y = size.height / 2), strokeWidth = lineWidth, cap = strokeCap)
+                    x = startPos, y = height), end = Offset(
+                    x = endPos, y = height), strokeWidth = lineWidth, cap = strokeCap)
             startPos -= segmentWidth
             endPos -= segmentWidth
         }
@@ -84,14 +87,16 @@ fun MultiColorLinearProgressIndicator(
         val totalSegmentWidth = segmentWidth + spacing
         val lineWidth = thickness.toPx()
 
+        val height = size.height / 2
+
         val oneProgressWidth = screenSize.value
 
         val totalSegments = colors.size
 
         drawLine(
             color = backgroundColor, start = Offset(
-                x = 0f, y = size.height / 2), end = Offset(
-                x = screenSize.value, y = size.height / 2), strokeWidth = lineWidth,
+                x = 0f, y =height), end = Offset(
+                x = screenSize.value, y = height), strokeWidth = lineWidth,
             cap = strokeCap)
 
         for(i in 0 until totalSegments) {
@@ -106,8 +111,8 @@ fun MultiColorLinearProgressIndicator(
 
             drawLine(
                 color = color, start = Offset(
-                    x = start, y = size.height / 2), end = Offset(
-                    x = segmentEnd, y = size.height / 2), strokeWidth = lineWidth, cap = strokeCap)
+                    x = start, y = height), end = Offset(
+                    x = segmentEnd, y = height), strokeWidth = lineWidth, cap = strokeCap)
         }
     }
 }
